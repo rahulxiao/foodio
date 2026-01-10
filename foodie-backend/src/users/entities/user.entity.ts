@@ -31,4 +31,5 @@ export class User {
 
     @OneToMany(() => Order, (order) => order.user)
     orders: Order[];
+    //TypeScript
 }
