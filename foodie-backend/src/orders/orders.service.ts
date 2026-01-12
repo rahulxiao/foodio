@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Order } from './entities/order.entity';
 import { OrderItem } from './entities/order-item.entity';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class OrdersService {
@@ -11,39 +12,53 @@ export class OrdersService {
         private ordersRepository: Repository<Order>,
         @InjectRepository(OrderItem)
         private orderItemsRepository: Repository<OrderItem>,
+        private usersService: UsersService,
     ) { }
 
     async create(orderData: Partial<Order>, items: any[]) {
-        // 1. Create Order
-        // Note: Assuming `items` array comes with { menuItemId, quantity, price }
+        // Remove items from orderData if they exist to handle them separately
+        const { items: _, ...restOrderData } = orderData as any;
 
-        const order = this.ordersRepository.create({
-            ...orderData,
-            status: 'Pending',
-            createdAt: new Date(),
-        });
+        const order = new Order();
+        Object.assign(order, restOrderData);
+
+        // Fetch address from user profile if not provided
+        if (!order.address || order.address === 'Address needed' || order.address === 'Default Address') {
+            const user = await this.usersService.findOne(restOrderData.user.id);
+            if (user && user.address) {
+                order.address = user.address;
+            }
+        }
+
+        order.status = 'Pending';
+        order.createdAt = new Date();
 
         const savedOrder = await this.ordersRepository.save(order);
 
-        // 2. Create OrderItems
-        // Ideally we would fetch MenuItem price here to prevent frontend manipulation, 
-        // but for this MVP we'll trust the input or simple relation.
-
-        const orderItems = items.map(item => this.orderItemsRepository.create({
-            order: savedOrder,
-            quantity: item.quantity,
-            price: item.price,
-            menuItem: { id: item.menuItemId } as any // Relation reference
-        }));
+        // Create OrderItems with proper relation mapping
+        const orderItems = items.map(item => {
+            const orderItem = new OrderItem();
+            orderItem.order = savedOrder;
+            orderItem.quantity = item.quantity;
+            orderItem.price = item.price;
+            orderItem.menuItem = { id: Number(item.menuItemId) } as any;
+            return orderItem;
+        });
 
         await this.orderItemsRepository.save(orderItems);
 
         return this.findOne(savedOrder.id);
     }
 
-    findAll() {
+    findAll(userId?: number) {
         return this.ordersRepository.find({
-            relations: ['items', 'items.menuItem', 'user'],
+            where: userId ? { user: { id: userId } } : {},
+            relations: {
+                items: {
+                    menuItem: true
+                },
+                user: true
+            },
             order: { createdAt: 'DESC' }
         });
     }
@@ -51,7 +66,12 @@ export class OrdersService {
     findOne(id: number) {
         return this.ordersRepository.findOne({
             where: { id },
-            relations: ['items', 'items.menuItem', 'user']
+            relations: {
+                items: {
+                    menuItem: true
+                },
+                user: true
+            }
         });
     }
 

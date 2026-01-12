@@ -12,23 +12,33 @@ export default function MyOrdersPage() {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            window.location.href = '/auth';
+            window.location.replace('/auth');
             return;
         }
         setIsLoggedIn(true);
 
-        fetch(API_ENDPOINTS.ORDERS.GET_MY, {
-            headers: { 'Authorization': `Bearer ${token}` }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setOrders(Array.isArray(data) ? data : []);
-                setLoading(false);
+        const fetchOrders = () => {
+            fetch(API_ENDPOINTS.ORDERS.GET_MY, {
+                headers: { 'Authorization': `Bearer ${token}` }
             })
-            .catch(err => {
-                console.error("Orders fetch failed", err);
-                setLoading(false);
-            });
+                .then(res => res.json())
+                .then(data => {
+                    setOrders(Array.isArray(data) ? data : []);
+                    setLoading(false);
+                })
+                .catch(err => {
+                    console.error("Orders fetch failed", err);
+                    setLoading(false);
+                });
+        };
+
+        // Initial fetch
+        fetchOrders();
+
+        // Dynamic polling: update every 10 seconds
+        const intervalId = setInterval(fetchOrders, 10000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     const getStatusStep = (status: string) => {
@@ -114,24 +124,50 @@ export default function MyOrdersPage() {
                                 </div>
 
                                 {/* Progress Bar */}
-                                <div className="relative pt-6 pb-2">
-                                    <div className="absolute top-[29px] left-0 w-full h-0.5 bg-gray-100 -z-10" />
+                                {/* Enhanced Progress Bar */}
+                                <div className="mt-12 relative">
+                                    {/* Line Background */}
+                                    <div className="absolute top-[18px] left-[5%] right-[5%] h-[4px] bg-gray-100 rounded-full" />
+
+                                    {/* Active Line Fill */}
                                     <div
-                                        className="absolute top-[29px] left-0 h-0.5 bg-[#1B3B36] -z-10 transition-all duration-500"
-                                        style={{ width: `${(currentStep / 3) * 100}%` }}
+                                        className="absolute top-[18px] left-[5%] h-[4px] bg-[#1B3B36] rounded-full transition-all duration-1000 ease-out"
+                                        style={{ width: `${(currentStep / 3) * 90}%` }}
                                     />
 
-                                    <div className="flex justify-between">
-                                        {['PENDING', 'PREPARING', 'READY', 'COMPLETED'].map((step, index) => {
+                                    <div className="flex justify-between relative z-10">
+                                        {[
+                                            { label: 'PENDING', icon: '🕒' },
+                                            { label: 'PREPARING', icon: '👨‍🍳' },
+                                            { label: 'READY', icon: '✅' },
+                                            { label: 'COMPLETED', icon: '🎁' }
+                                        ].map((step, index) => {
                                             const isCompleted = index <= currentStep;
+                                            const isCurrent = index === currentStep;
+
                                             return (
-                                                <div key={step} className="flex flex-col items-center gap-3">
-                                                    <div className={`w-3 h-3 rounded-full border-[3px] box-content bg-white z-10 ${isCompleted ? 'border-[#1B3B36] bg-[#1B3B36]' : 'border-gray-200'
-                                                        }`} />
-                                                    <span className={`text-[10px] font-bold tracking-widest ${isCompleted ? 'text-[#1B3B36]' : 'text-gray-300'
-                                                        }`}>
-                                                        {step}
+                                                <div key={step.label} className="flex flex-col items-center group">
+                                                    {/* Circle with Icon */}
+                                                    <div className={`
+                                                        w-10 h-10 rounded-full flex items-center justify-center text-sm transition-all duration-500 border-4 bg-white
+                                                        ${isCompleted ? 'border-[#1B3B36] text-[#1B3B36] scale-110 shadow-lg' : 'border-gray-100 text-gray-300'}
+                                                        ${isCurrent ? 'ring-4 ring-[#1B3B36]/10 animate-pulse' : ''}
+                                                    `}>
+                                                        {isCompleted ? step.icon : index + 1}
+                                                    </div>
+
+                                                    {/* Label */}
+                                                    <span className={`
+                                                        mt-4 text-[10px] font-black tracking-[0.2em] transition-colors duration-500
+                                                        ${isCompleted ? 'text-[#1B3B36]' : 'text-gray-300'}
+                                                    `}>
+                                                        {step.label}
                                                     </span>
+
+                                                    {/* Status Pulse for Current Step */}
+                                                    {isCurrent && (
+                                                        <span className="mt-1.5 flex h-1.5 w-1.5 rounded-full bg-[#1B3B36] animate-bounce" />
+                                                    )}
                                                 </div>
                                             );
                                         })}

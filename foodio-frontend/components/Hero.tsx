@@ -3,6 +3,7 @@ import React from 'react';
 
 const Hero = () => {
     return (
+
         <section className="relative w-full max-w-7xl mx-auto px-8 py-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center overflow-hidden lg:overflow-visible">
 
             {/* Text Content */}
@@ -31,15 +32,7 @@ const Hero = () => {
                 {/* Background Shape - Beige Curve */}
                 <div className="absolute top-[-10%] right-[-50%] lg:right-[-40%] w-[150%] h-[120%] bg-[#FEF8F1] rounded-l-full -z-10 rotate-[-5deg] scale-110" />
 
-                {/* Main Image */}
-                <div className="relative w-[350px] h-[350px] md:w-[500px] md:h-[500px]">
-                    <img
-                        src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=2070&auto=format&fit=crop"
-                        alt="Delicious Pasta"
-                        className="object-cover rounded-full shadow-2xl z-10 w-full h-full"
-                    />
-                    {/* Decorative elements could be added here */}
-                </div>
+
             </div>
         </section>
     );

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { API_ENDPOINTS } from "../../lib/api";
 
 export default function AuthPage() {
@@ -71,7 +72,7 @@ export default function AuthPage() {
     return (
         <div className="min-h-screen bg-white font-sans flex flex-col justify-between">
             <header className="px-8 py-6">
-                <div className="flex items-center gap-2">
+                <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
                     <div className="w-8 h-8 bg-[#1B3B36] rounded-full flex items-center justify-center text-white font-bold text-sm">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -80,11 +81,14 @@ export default function AuthPage() {
                         </svg>
                     </div>
                     <span className="text-xl font-bold text-[#1B3B36]">Foodio.</span>
-                </div>
+                </Link>
             </header>
 
             <main className="flex-grow flex flex-col items-center justify-center px-4 py-12">
                 <div className="w-full max-w-md">
+                    <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-[#1B3B36] text-sm font-medium transition-colors mb-6 group">
+                        <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Home
+                    </Link>
                     <div className="bg-white rounded-[32px] shadow-2xl p-8 md:p-12 border border-gray-50 text-center">
                         <div className="flex items-center justify-center gap-2 mb-3">
                             <div className="w-6 h-6 bg-[#1B3B36] rounded-full flex items-center justify-center text-white font-bold text-[10px]">
@@ -119,7 +123,7 @@ export default function AuthPage() {
                                             required
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
-                                            className="w-full px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-[#1B3B36]"
+                                            className="w-full px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black"
                                         />
                                     </div>
                                     <div>
@@ -129,7 +133,7 @@ export default function AuthPage() {
                                             required
                                             value={address}
                                             onChange={(e) => setAddress(e.target.value)}
-                                            className="w-full px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-[#1B3B36]"
+                                            className="w-full px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black"
                                         />
                                     </div>
                                 </>
@@ -141,7 +145,7 @@ export default function AuthPage() {
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-[#1B3B36]"
+                                    className="w-full px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black"
                                 />
                             </div>
                             <div>
@@ -151,7 +155,7 @@ export default function AuthPage() {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-[#1B3B36]"
+                                    className="w-full px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black"
                                 />
                             </div>
 

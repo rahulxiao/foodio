@@ -8,8 +8,8 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ active = 'Home', isLoggedIn = false }) => {
     return (
-        <nav className="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto w-full font-sans bg-white relative z-50">
-            <div className="flex items-center gap-2">
+        <nav className="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto w-full font-sans relative z-50">
+            <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
                 <div className="w-8 h-8 bg-[#1B3B36] rounded-full flex items-center justify-center text-white font-bold text-sm">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -18,9 +18,9 @@ const Navbar: React.FC<NavbarProps> = ({ active = 'Home', isLoggedIn = false }) 
                     </svg>
                 </div>
                 <span className="text-xl font-bold text-[#1B3B36]">Foodio.</span>
-            </div>
+            </Link>
 
-            <div className="hidden md:flex items-center gap-2 text-gray-500 font-medium bg-white">
+            <div className="hidden md:flex items-center gap-2 text-gray-500 font-medium">
                 <Link href="/" className={`${active === 'Home' ? 'text-[#1B3B36] border border-gray-200 bg-gray-50' : 'hover:text-[#1B3B36]'} px-6 py-2 rounded-full text-sm font-semibold transition-colors`}>Home</Link>
                 <Link href="/menu" className={`${active === 'Food Menu' ? 'text-[#1B3B36] border border-gray-200 bg-gray-50' : 'hover:text-[#1B3B36]'} px-6 py-2 rounded-full text-sm font-semibold transition-colors`}>Food Menu</Link>
                 <Link href="/orders" className={`${active === 'My Order' ? 'text-[#1B3B36] border border-gray-200 bg-gray-50' : 'hover:text-[#1B3B36]'} px-6 py-2 rounded-full text-sm font-semibold transition-colors`}>My Order</Link>

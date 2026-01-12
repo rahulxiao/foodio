@@ -7,6 +7,7 @@ import Categories from "../components/Categories";
 import FoodCard from "../components/FoodCard";
 import OrderModal from "../components/OrderModal";
 import { API_ENDPOINTS, getImageUrl } from "../lib/api";
+import TopUI from '@/components/TopUI';
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState('Starters');
@@ -51,7 +52,7 @@ export default function Home() {
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          address: user?.address || "Default Address", // In real app, ask for address
+          address: user?.address || "Default Address",
           total: parseFloat(selectedItem?.price || '0') * quantity,
           items: [
             {
@@ -75,9 +76,11 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans">
+    <div className="min-h-screen bg-white font-sans relative">
+      <TopUI />
       <Navbar />
       <Hero />
+
 
       {/* Categories with interactive selection */}
       <Categories

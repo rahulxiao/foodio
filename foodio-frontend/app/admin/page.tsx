@@ -324,7 +324,7 @@ export default function AdminDashboard() {
                                                         </select>
                                                     </td>
                                                     <td className="py-5 pr-6 text-right text-xs text-gray-400">
-                                                        {order.address}
+                                                        {order.address === 'Address needed' ? (order.user?.address || 'No address') : order.address}
                                                     </td>
                                                 </tr>
                                             ))
