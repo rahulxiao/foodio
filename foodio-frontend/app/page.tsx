@@ -96,7 +96,7 @@ export default function Home() {
         {loading ? (
           <div className="text-center py-20 text-[#1B3B36] font-medium">Loading items...</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
             {foodItems.map((item, index) => (
               <div key={index} className="w-full">
                 <FoodCard
