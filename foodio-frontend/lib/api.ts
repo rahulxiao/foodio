@@ -14,7 +14,7 @@ export const API_ENDPOINTS = {
     ORDERS: {
         GET_MY: `${BASE_URL}/orders`, // In real app, might need user id or token
         CREATE: `${BASE_URL}/orders`,
-        UPDATE_STATUS: (id: number) => `${BASE_URL}/orders/${id}/status`,
+        UPDATE_STATUS: (id: string) => `${BASE_URL}/orders/${id}/status`,
     }
 };
 

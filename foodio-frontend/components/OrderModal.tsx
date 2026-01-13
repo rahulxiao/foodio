@@ -9,52 +9,62 @@ interface OrderModalProps {
     itemTitle: string;
 }
 
-const OrderModal: React.FC<OrderModalProps> = ({ isOpen, onClose, onConfirm, itemTitle }) => {
+const OrderModal: React.FC<OrderModalProps> = ({
+    isOpen,
+    onClose,
+    onConfirm,
+    itemTitle,
+}) => {
     const [quantity, setQuantity] = useState(1);
 
     if (!isOpen) return null;
 
-    const handleIncrement = () => setQuantity(prev => prev + 1);
-    const handleDecrement = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
+    const handleIncrement = () => setQuantity((prev) => prev + 1);
+    const handleDecrement = () =>
+        setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-            <div className="bg-white rounded-[24px] shadow-2xl w-full max-w-lg p-8 relative scale-100 animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
+            <div className="bg-[#FDFDFC] w-full max-w-lg rounded-[28px] shadow-2xl p-8 relative">
 
-                {/* Close Icon */}
+                {/* Close Button */}
                 <button
                     onClick={onClose}
                     className="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition-colors"
                 >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
+                    ✕
                 </button>
 
                 {/* Title */}
-                <h2 className="text-2xl font-bold text-[#1B3B36] mb-8 font-serif">Are you sure want to buy?</h2>
+                <h2 className="text-[26px] font-semibold text-[#1B3B36] mb-8">
+                    Are you sure want to buy?
+                </h2>
 
-                {/* Item Details */}
-                <div className="mb-8">
-                    <p className="text-gray-400 text-sm mb-2">Items</p>
-                    <div className="flex justify-between items-center">
-                        <span className="text-lg font-medium text-[#1B3B36]">{itemTitle}</span>
+                {/* Item Section */}
+                <div className="mb-10">
+                    <p className="text-gray-400 text-sm mb-3">Items</p>
+
+                    <div className="flex items-center justify-between">
+                        <span className="text-lg font-semibold text-[#1B3B36]">
+                            {itemTitle}
+                        </span>
 
                         {/* Quantity Controls */}
                         <div className="flex items-center gap-3">
                             <button
                                 onClick={handleDecrement}
-                                className="w-8 h-8 rounded-full border border-[#1B3B36] text-[#1B3B36] flex items-center justify-center hover:bg-[#1B3B36] hover:text-white transition-colors text-lg leading-none pb-1"
+                                className="w-8 h-8 rounded-full border border-[#1B3B36] text-[#1B3B36] flex items-center justify-center text-lg pb-0.5"
                             >
                                 −
                             </button>
-                            <div className="w-12 h-10 border border-[#E5E7EB] rounded-lg flex items-center justify-center text-[#1B3B36] font-semibold bg-[#FDFDFC]">
+
+                            <div className="w-14 h-9 border border-[#E6E2DA] rounded-lg flex items-center justify-center text-[#1B3B36] font-semibold">
                                 {quantity}
                             </div>
+
                             <button
                                 onClick={handleIncrement}
-                                className="w-8 h-8 rounded-full border border-[#1B3B36] text-[#1B3B36] flex items-center justify-center hover:bg-[#1B3B36] hover:text-white transition-colors text-lg leading-none pb-1"
+                                className="w-8 h-8 rounded-full border border-[#1B3B36] text-[#1B3B36] flex items-center justify-center text-lg pb-0.5"
                             >
                                 +
                             </button>
@@ -63,18 +73,19 @@ const OrderModal: React.FC<OrderModalProps> = ({ isOpen, onClose, onConfirm, ite
                 </div>
 
                 {/* Footer Buttons */}
-                <div className="flex gap-4 pt-4 border-t border-transparent">
+                <div className="flex justify-end gap-4 mt-8">
                     <button
                         onClick={onClose}
-                        className="flex-1 py-3.5 rounded-full border border-[#1B3B36] text-[#1B3B36] font-semibold hover:bg-gray-50 transition-colors"
+                        className="px-10 py-3 rounded-full border border-[#1B3B36] text-[#1B3B36] font-medium hover:bg-gray-50 transition-colors"
                     >
                         Cancel
                     </button>
+
                     <button
                         onClick={() => onConfirm(quantity)}
-                        className="flex-1 py-3.5 rounded-full bg-[#1B3B36] text-white font-semibold hover:bg-[#152e2a] transition-colors shadow-lg shadow-[#1B3B36]/20"
+                        className="px-10 py-3 rounded-full bg-[#1B3B36] text-white font-medium hover:bg-[#152e2a] transition-colors"
                     >
-                        Order Now
+                        Confirm Order
                     </button>
                 </div>
             </div>

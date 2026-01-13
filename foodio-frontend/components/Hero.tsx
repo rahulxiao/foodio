@@ -8,22 +8,38 @@ const Hero = () => {
 
             {/* Text Content */}
             <div className="space-y-8 z-10 pt-10 lg:pt-0">
-                <span className="inline-block px-4 py-1.5 bg-[#FEF8F1] text-[#D4A373] text-xs font-bold rounded-md tracking-wider uppercase border border-[#FBEAD2]">
+                <span className="inline-block px-4 py-1.5 bg-[#FEF8F1] text-[#000000] text-xs font-bold rounded-md tracking-wider uppercase border border-[#FBEAD2]">
                     Full Food Delivery Service
                 </span>
                 <h1 className="text-5xl md:text-7xl font-serif text-[#1B3B36] leading-[1.1] tracking-tight">
                     Where Great Food <br /> Meets <span className="font-serif italic font-light">Great Taste.</span>
                 </h1>
-                <p className="text-gray-500 text-lg max-w-md leading-relaxed font-light">
+                <p className="text-black text-lg max-w-md leading-relaxed font-light">
                     Experience a symphony of flavors crafted with passion. Premium ingredients, exquisite recipes, delivered to your door.
                 </p>
+
                 <div className="flex items-center gap-4 pt-4">
-                    <a href="/menu" className="bg-[#1B3B36] text-white px-8 py-4 rounded-full font-semibold text-sm hover:bg-[#152e2a] transition-colors flex items-center gap-2 shadow-lg shadow-[#1B3B36]/20">
+                    <a
+                        href="/menu"
+                        className="bg-[#1B3B36] text-white px-8 py-4
+             rounded-full rounded-tr-none
+             font-semibold text-sm hover:bg-[#152e2a]
+             transition-colors flex items-center gap-2 shadow-lg shadow-[#1B3B36]/20"
+                    >
                         Order Now <span className="text-lg leading-none">→</span>
                     </a>
-                    <a href="/menu" className="bg-white border border-gray-300 text-[#1B3B36] px-8 py-4 rounded-full font-semibold text-sm hover:bg-gray-50 transition-colors shadow-sm">
+
+
+                    <a
+                        href="/menu"
+                        className="bg-white border border-gray-300 text-[#1B3B36] px-8 py-4
+             rounded-full rounded-tl-none
+             font-semibold text-sm hover:bg-gray-50
+             transition-colors shadow-sm"
+                    >
                         View Menu
                     </a>
+
                 </div>
             </div>
 

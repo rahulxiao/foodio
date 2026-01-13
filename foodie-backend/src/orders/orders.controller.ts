@@ -29,7 +29,7 @@ export class OrdersController {
     @UseGuards(AuthGuard('jwt'))
     @Get(':id')
     async findOne(@Param('id') id: string, @Request() req) {
-        const order = await this.ordersService.findOne(+id);
+        const order = await this.ordersService.findOne(id);
 
         // Security check: only owner or admin can see specific order details
         if (req.user.role !== 'admin' && order?.user?.id !== req.user.userId) {
@@ -43,6 +43,6 @@ export class OrdersController {
     @Put(':id/status')
     updateStatus(@Param('id') id: string, @Body('status') status: string) {
         // Typically only admin can update status
-        return this.ordersService.updateStatus(+id, status);
+        return this.ordersService.updateStatus(id, status);
     }
 }

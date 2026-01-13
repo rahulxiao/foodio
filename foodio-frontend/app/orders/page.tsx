@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "../../components/Navbar";
 import { API_ENDPOINTS } from "../../lib/api";
+import Footer from "../../components/Footer";
+
 
 export default function MyOrdersPage() {
     const [orders, setOrders] = useState<any[]>([]);
@@ -179,17 +181,7 @@ export default function MyOrdersPage() {
                 )}
             </main>
 
-            {/* Footer */}
-            <footer className="border-t border-gray-100 py-12 px-8">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
-                    <div className="font-bold text-[#1B3B36] mb-4 md:mb-0">Foodio. © 2026 Foodio Inc.</div>
-                    <div className="flex gap-8">
-                        <a href="#" className="hover:text-[#1B3B36]">Privacy</a>
-                        <a href="#" className="hover:text-[#1B3B36]">Terms</a>
-                        <a href="#" className="hover:text-[#1B3B36]">Contact</a>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

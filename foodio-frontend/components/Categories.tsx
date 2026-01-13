@@ -17,7 +17,7 @@ const Categories: React.FC<CategoriesProps> = ({ activeCategory = 'Starters', on
     return (
         <section className="py-20 text-center max-w-7xl mx-auto px-8 relative z-10">
             <h2 className="text-5xl font-serif text-[#1B3B36] mb-4">Curated Categories</h2>
-            <p className="text-gray-500 mb-16 text-lg font-light">Explore our diverse menu of culinary delights.</p>
+            <p className="text-black mb-16 text-lg font-light">Explore our diverse menu of culinary delights.</p>
 
             <div className="flex flex-wrap justify-center gap-12">
                 {/* Starters */}

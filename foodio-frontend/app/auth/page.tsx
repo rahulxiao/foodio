@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { API_ENDPOINTS } from "../../lib/api";
+import Footer from "../../components/Footer";
+
 
 export default function AuthPage() {
     const [isLogin, setIsLogin] = useState(true);
@@ -85,10 +87,10 @@ export default function AuthPage() {
             </header>
 
             <main className="flex-grow flex flex-col items-center justify-center px-4 py-12">
-                <div className="w-full max-w-md">
-                    <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-[#1B3B36] text-sm font-medium transition-colors mb-6 group">
+                <div className="w-full max-w-xl">
+                    {/* <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-[#1B3B36] text-sm font-medium transition-colors mb-6 group">
                         <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Home
-                    </Link>
+                    </Link> */}
                     <div className="bg-white rounded-[32px] shadow-2xl p-8 md:p-12 border border-gray-50 text-center">
                         <div className="flex items-center justify-center gap-2 mb-3">
                             <div className="w-6 h-6 bg-[#1B3B36] rounded-full flex items-center justify-center text-white font-bold text-[10px]">
@@ -102,7 +104,7 @@ export default function AuthPage() {
                         </div>
                         <p className="text-gray-400 text-sm mb-8">Premium flavors, delivered.</p>
 
-                        <div className="bg-[#FEF8F1] rounded-full p-1.5 flex mb-8">
+                        <div className="bg-gray-50/50 border border-gray-100/50 rounded-full p-1.5 flex mb-8">
                             <button
                                 onClick={() => setIsLogin(true)}
                                 className={`flex-1 py-3 text-sm font-semibold rounded-full transition-all ${isLogin ? 'bg-white shadow-sm text-[#1B3B36]' : 'text-gray-500'}`}
@@ -115,29 +117,19 @@ export default function AuthPage() {
 
                         <form onSubmit={handleSubmit} className="space-y-4 text-left">
                             {!isLogin && (
-                                <>
-                                    <div>
-                                        <label className="block text-xs font-semibold text-gray-600 mb-1">Full Name</label>
-                                        <input
-                                            type="text"
-                                            required
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                            className="w-full px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-xs font-semibold text-gray-600 mb-1">Address</label>
-                                        <input
-                                            type="text"
-                                            required
-                                            value={address}
-                                            onChange={(e) => setAddress(e.target.value)}
-                                            className="w-full px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black"
-                                        />
-                                    </div>
-                                </>
+                                <div>
+                                    <label className="block text-xs font-semibold text-gray-600 mb-1">Full Name</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        className="w-full px-5 py-2.5 rounded-2xl bg-white border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black shadow-sm text-sm"
+                                        placeholder="John Doe"
+                                    />
+                                </div>
                             )}
+
                             <div>
                                 <label className="block text-xs font-semibold text-gray-600 mb-1">Email</label>
                                 <input
@@ -145,9 +137,25 @@ export default function AuthPage() {
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black"
+                                    className="w-full px-5 py-2.5 rounded-2xl bg-white border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black shadow-sm text-sm"
+                                    placeholder="name@example.com"
                                 />
                             </div>
+
+                            {!isLogin && (
+                                <div>
+                                    <label className="block text-xs font-semibold text-gray-600 mb-1">Address</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={address}
+                                        onChange={(e) => setAddress(e.target.value)}
+                                        className="w-full px-5 py-2.5 rounded-2xl bg-white border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black shadow-sm text-sm"
+                                        placeholder="123 Street, City Name"
+                                    />
+                                </div>
+                            )}
+
                             <div>
                                 <label className="block text-xs font-semibold text-gray-600 mb-1">Password</label>
                                 <input
@@ -155,7 +163,8 @@ export default function AuthPage() {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black"
+                                    className="w-full px-5 py-2.5 rounded-2xl bg-white border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black shadow-sm text-sm"
+
                                 />
                             </div>
 
@@ -177,16 +186,7 @@ export default function AuthPage() {
                 </div>
             </main>
 
-            <footer className="border-t border-gray-50 py-8 px-8">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-gray-300 text-xs">
-                    <div className="font-bold text-[#1B3B36] mb-4 md:mb-0">Foodio. <span className="text-gray-300 font-normal">© 2026 Foodio Inc.</span></div>
-                    <div className="flex gap-8">
-                        <a href="#" className="hover:text-[#1B3B36]">Privacy</a>
-                        <a href="#" className="hover:text-[#1B3B36]">Terms</a>
-                        <a href="#" className="hover:text-[#1B3B36]">Contact</a>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

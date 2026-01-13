@@ -3,8 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "../../components/Navbar";
 import FoodCard from "../../components/FoodCard";
-import OrderModal from "../../components/OrderModal";
+import OrderModal from '@/components/OrderModal';
 import { API_ENDPOINTS, getImageUrl } from "../../lib/api";
+import Footer from "../../components/Footer";
+import { showSuccessToast } from "../../lib/notifications";
+
 
 export default function MenuPage() {
     const [activeCategory, setActiveCategory] = useState('All');
@@ -66,7 +69,7 @@ export default function MenuPage() {
             });
 
             if (response.ok) {
-                alert("Order placed successfully!");
+                showSuccessToast(selectedItem?.title || 'Item');
                 setIsModalOpen(false);
             } else {
                 alert("Failed to place order.");
@@ -83,7 +86,7 @@ export default function MenuPage() {
             {/* Header Section */}
             <section className="text-center pt-20 pb-12 px-4">
                 <h1 className="text-5xl font-serif text-[#1B3B36] mb-4">Our Menu</h1>
-                <p className="text-gray-500 text-lg max-w-2xl mx-auto font-light">
+                <p className="text-black text-lg max-w-2xl mx-auto font-light">
                     Discover our selection of premium dishes, crafted with passion.
                 </p>
             </section>
@@ -109,7 +112,7 @@ export default function MenuPage() {
                 {loading ? (
                     <div className="text-center py-20 text-[#1B3B36]">Loading our delicious menu...</div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-40">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-24 gap-y-40">
                         {menuItems.map((item, index) => (
                             <div key={index} className="w-full">
                                 <FoodCard
@@ -132,17 +135,7 @@ export default function MenuPage() {
                 itemTitle={selectedItem?.title || ''}
             />
 
-            {/* Footer */}
-            <footer className="border-t border-gray-100 py-12 px-8">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
-                    <div className="font-bold text-[#1B3B36] mb-4 md:mb-0">Foodio. © 2026 Foodio Inc.</div>
-                    <div className="flex gap-8">
-                        <a href="#" className="hover:text-[#1B3B36]">Privacy</a>
-                        <a href="#" className="hover:text-[#1B3B36]">Terms</a>
-                        <a href="#" className="hover:text-[#1B3B36]">Contact</a>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

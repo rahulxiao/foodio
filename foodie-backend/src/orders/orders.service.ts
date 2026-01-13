@@ -63,7 +63,7 @@ export class OrdersService {
         });
     }
 
-    findOne(id: number) {
+    findOne(id: string) {
         return this.ordersRepository.findOne({
             where: { id },
             relations: {
@@ -75,7 +75,7 @@ export class OrdersService {
         });
     }
 
-    async updateStatus(id: number, status: string) {
+    async updateStatus(id: string, status: string) {
         await this.ordersRepository.update(id, { status });
         return this.findOne(id);
     }

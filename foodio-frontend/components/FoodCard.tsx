@@ -21,7 +21,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
             {/* Card Container */}
             <div className="w-full h-full bg-[#FEF8F1] rounded-[30px] md:rounded-[40px] p-8 pt-32 shadow-xl relative mx-auto group hover:-translate-y-2 transition-transform duration-300 flex flex-col justify-between">
                 {/* Floating Image */}
-                <div className="absolute -top-20 left-1 w-48 h-48 rounded-full shadow-xl overflow-hidden border-4 border-white/20">
+                <div className="absolute -top-20 left-[-40px] w-48 h-48 rounded-full shadow-xl overflow-hidden border-4 border-white/20">
                     <Image
                         src={imageUrl}
                         alt={title}
@@ -29,6 +29,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
                         className="object-cover"
                     />
                 </div>
+
 
                 {/* Content */}
                 <div className="flex flex-col gap-2">

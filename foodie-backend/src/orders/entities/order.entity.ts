@@ -5,8 +5,8 @@ import { IsNotEmpty, IsNumber, IsString, Min } from 'class-validator';
 
 @Entity('orders')
 export class Order {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @ManyToOne(() => User, (user) => user.orders, { nullable: true }) // Optional for guest checkout if needed
     user: User;
