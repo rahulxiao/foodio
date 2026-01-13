@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Put, UseGuards, Request } from '@nestjs/common';
 import { OrdersService } from '../orders/orders.service';
-import { Order } from './entities/order.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { CreateOrderDto, UpdateOrderStatusDto } from './dto/order.dto';
 
 @Controller('orders')
 export class OrdersController {
@@ -9,13 +9,14 @@ export class OrdersController {
 
     @UseGuards(AuthGuard('jwt'))
     @Post()
-    create(@Body() createOrderDto: Partial<Order> & { items: any[] }, @Request() req) {
+    create(@Body() createOrderDto: CreateOrderDto, @Request() req) {
         // Ensure the order is created for the authenticated user
-        const orderData = {
-            ...createOrderDto,
+        const { items, ...orderData } = createOrderDto;
+        const completeOrderData = {
+            ...orderData,
             user: { id: req.user.userId } as any
         };
-        return this.ordersService.create(orderData, createOrderDto.items);
+        return this.ordersService.create(completeOrderData, items);
     }
 
     @UseGuards(AuthGuard('jwt'))
@@ -41,8 +42,8 @@ export class OrdersController {
 
     @UseGuards(AuthGuard('jwt'))
     @Put(':id/status')
-    updateStatus(@Param('id') id: string, @Body('status') status: string) {
+    updateStatus(@Param('id') id: string, @Body() updateStatusDto: UpdateOrderStatusDto) {
         // Typically only admin can update status
-        return this.ordersService.updateStatus(id, status);
+        return this.ordersService.updateStatus(id, updateStatusDto.status);
     }
 }

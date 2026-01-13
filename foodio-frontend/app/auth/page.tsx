@@ -126,6 +126,8 @@ export default function AuthPage() {
                                         onChange={(e) => setName(e.target.value)}
                                         className="w-full px-5 py-2.5 rounded-2xl bg-white border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black shadow-sm text-sm"
                                         placeholder="John Doe"
+                                        minLength={2}
+                                        title="Name must be at least 2 characters long"
                                     />
                                 </div>
                             )}
@@ -139,6 +141,8 @@ export default function AuthPage() {
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="w-full px-5 py-2.5 rounded-2xl bg-white border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black shadow-sm text-sm"
                                     placeholder="name@example.com"
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                    title="Please enter a valid email address"
                                 />
                             </div>
 
@@ -152,6 +156,8 @@ export default function AuthPage() {
                                         onChange={(e) => setAddress(e.target.value)}
                                         className="w-full px-5 py-2.5 rounded-2xl bg-white border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black shadow-sm text-sm"
                                         placeholder="123 Street, City Name"
+                                        minLength={10}
+                                        title="Address must be at least 10 characters long"
                                     />
                                 </div>
                             )}
@@ -164,7 +170,9 @@ export default function AuthPage() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     className="w-full px-5 py-2.5 rounded-2xl bg-white border border-gray-100 focus:outline-none focus:border-[#1B3B36] text-black shadow-sm text-sm"
-
+                                    placeholder={isLogin ? "Enter your password" : "Minimum 6 characters"}
+                                    minLength={6}
+                                    title="Password must be at least 6 characters long"
                                 />
                             </div>
 
