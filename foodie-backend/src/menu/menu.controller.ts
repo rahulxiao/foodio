@@ -24,6 +24,7 @@ export class MenuController {
             ...createMenuItemDto,
             imageUrl: file ? `/uploads/${file.filename}` : createMenuItemDto.imageUrl,
             price: parseFloat(createMenuItemDto.price), // Body values come as strings in multipart
+            isAvailable: createMenuItemDto.isAvailable === 'true' || createMenuItemDto.isAvailable === true,
         };
         return this.menuService.create(data);
     }
@@ -60,6 +61,10 @@ export class MenuController {
         }
         if (updateMenuItemDto.price) {
             data.price = parseFloat(updateMenuItemDto.price);
+        }
+        // Convert isAvailable from string to boolean (comes as string from FormData)
+        if (updateMenuItemDto.isAvailable !== undefined) {
+            data.isAvailable = updateMenuItemDto.isAvailable === 'true' || updateMenuItemDto.isAvailable === true;
         }
         return this.menuService.update(+id, data);
     }
